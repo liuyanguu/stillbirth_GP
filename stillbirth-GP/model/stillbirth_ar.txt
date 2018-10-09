@@ -1,0 +1,94 @@
+model{
+for (i in 1:totalObs_SBR)
+{
+
+ y.i[i] ~ dnorm (mu.ct[getc.i[i], gett.i[i]]+z.i[i]+G.tc[gett.i[i],getc.i[i]], tauy.j[getj.i[i]])
+ 
+
+z.i[i] <- beta_datatype2*dummy_datatype2.i[i]+
+            beta_datatype3*dummy_datatype3.i[i]+
+            beta_datatype4*dummy_datatype4.i[i]+
+            beta_datatype5*dummy_datatype5.i[i] 
+}
+
+
+
+
+for (country in 1:totalIndex_covar)
+
+{
+ a.c[country] ~ dnorm(a.r[getr.c[country]], tau.c)
+  
+
+
+for( t in 1:yearLength)
+
+{
+    mu.ct[country,t] = (a.c[country] +
+
+ beta2*edu_matrix[country,t]+
+ beta3*anc_matrix[country,t]+
+ beta4*lbw_matrix[country,t]+
+ beta5*nmr_matrix[country,t]+
+ beta6*gni_matrix[country,t])
+  
+}
+}
+
+
+
+for(country in 1:totalIndex_covar){
+G.tc[1,country]~dnorm(0,tau.stat[country])
+
+rho[country] ~ dunif(-1,1)
+tau.stat[country] <-  (1-pow(rho[country],2))/pow(sigma[country],2)
+tau[country] <- pow(sigma[country],-2)
+sigma[country] ~ dunif(0,5)
+for(t in 2:yearLength){
+G.tc[t,country]~dnorm(Ghat.tc[t,country],tau[country])
+Ghat.tc[t,country]<-rho[country]*G.tc[t-1,country]
+}
+}
+for (r in 1:totalRegion)
+
+{
+  a.r[r] ~ dnorm(beta0, 0.001)
+} 
+
+ 
+
+for (j in 1:5)
+
+ {
+ tauy.j[j] <- pow(sdy.j[j],-2)
+ 
+   sdy.j[j] ~ dunif (0,5)
+}
+
+
+   tau.c <- pow(sd.c,-2)
+   
+sd.c ~ dunif(0,5)
+   
+beta_datatype2 ~ dnorm(0,1/1000)
+
+   beta_datatype3 ~ dnorm(0,1/1000)
+   
+beta_datatype4 ~ dnorm(0,1/1000)
+   
+beta_datatype5 ~ dnorm(0,1/1000)
+
+   beta0 ~ dnorm(0,0.001)
+   
+beta2 ~ dnorm(0,0.001)
+   
+beta3 ~ dnorm(0,0.001)
+   
+beta4 ~ dnorm(0,0.001)
+   
+beta5 ~ dnorm(0,0.001)
+
+   beta6 ~ dnorm(0,0.001)
+
+
+}
