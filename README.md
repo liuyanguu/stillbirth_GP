@@ -1,1 +1,1 @@
-# Go to master.R first
+# Go to STB_GP/master.R first
