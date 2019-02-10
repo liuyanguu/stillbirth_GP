@@ -1,0 +1,62 @@
+model{  
+
+        for (k in 1:ntrain){
+        y.i[getitrain.k[k]] ~ dnorm(mu.ct[getc.i[getitrain.k[k]], gett.i[getitrain.k[k]]]+z.i[getitrain.k[k]]+ 0, tauy.j[getj.i[getitrain.k[k]]])
+
+        yhat.i[getitrain.k[k]]<- mu.ct[getc.i[getitrain.k[k]],gett.i[getitrain.k[k]]]+z.i[getitrain.k[k]]+ 0
+        
+        z.i[getitrain.k[k]] <- beta_datatype2*dummy_datatype2.i[getitrain.k[k]]+
+                               beta_datatype3*dummy_datatype3.i[getitrain.k[k]]+
+                               beta_datatype4*dummy_datatype4.i[getitrain.k[k]]+
+                               beta_datatype5*dummy_datatype5.i[getitrain.k[k]]} #end k loop
+      
+
+        for (i in 1:totalObs_SBR){
+        yrep.i[i] ~ dnorm(mu.ct[getc.i[i], gett.i[i]]+ 
+                  beta_datatype2*dummy_datatype2.i[i]+
+                  beta_datatype3*dummy_datatype3.i[i]+
+                  beta_datatype4*dummy_datatype4.i[i]+
+                  beta_datatype5*dummy_datatype5.i[i]+ 0 , tauy.j[getj.i[i]])
+                 
+        loglike.i[i] <- logdensity.norm(y.i[i], mu.ct[getc.i[i], gett.i[i]]+ 
+                 beta_datatype2*dummy_datatype2.i[i]+
+                 beta_datatype3*dummy_datatype3.i[i]+
+                 beta_datatype4*dummy_datatype4.i[i]+
+                 beta_datatype5*dummy_datatype5.i[i] 
+                 + 0 , tauy.j[getj.i[i]])} #end i loop
+        
+
+      for (country in 1:totalIndex_covar){
+      a.c[country] ~ dnorm(a.r[getr.c[country]], tau.c)
+  
+      for( t in 1:yearLength){
+      mu.ct[country,t] <- (a.c[country] + 
+                     beta2*edu_matrix[country,t]+
+                     beta3*anc_matrix[country,t]+
+                     beta4*lbw_matrix[country,t]+
+                     beta5*nmr_matrix[country,t]+
+                     beta6*gni_matrix[country,t])
+        }#end t loop
+        }#end country loop
+      
+      for (r in 1:totalRegion){
+      a.r[r] ~ dnorm(beta0, 0.001)} 
+
+      for (j in 1:5){
+      tauy.j[j] <- pow(sdy.j[j],-2)
+      sdy.j[j] ~ dunif (0,5)}
+
+      tau.c <- pow(sd.c,-2)
+      sd.c ~ dunif(0,5)
+      beta_datatype2 ~ dnorm(0,0.001)
+      beta_datatype3 ~ dnorm(0,0.001)
+      beta_datatype4 ~ dnorm(0,0.001)
+      beta_datatype5 ~ dnorm(0,0.001)
+      beta0 ~ dnorm(0,0.001)
+      beta2 ~ dnorm(0,0.001)
+      beta3 ~ dnorm(0,0.001)
+      beta4 ~ dnorm(0,0.001)
+      beta5 ~ dnorm(0,0.001)
+      beta6 ~ dnorm(0,0.001)
+      
+} # end model 
