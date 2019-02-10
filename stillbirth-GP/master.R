@@ -8,7 +8,6 @@
 # project specific R functions are saved in the R subfolder 
 # subscripts (that eventually are to be turned into R functions) are in sub_....R
 # data are in data subfolder
-# output per model in the output folder
 
 #----
 # user/run specific info
@@ -47,27 +46,16 @@ jags.data <- get_jagsdata(SBR_input,national_covar,do.validation = FALSE)
 #---------------------------------------------------------------
 # run a model
 
-# save a model file (here using a function to allow for different options)
-#writeModel(time.trend = F, file.name = "model/model_basic.txt")
-#writeModel(time.trend = T, file.name = "model/model_ar1MVN.txt")
 
-# parameters to save
-#getParamsandOutput(time.trend = F, input.file.name = "model/model_basic.txt", output.file.name = "model/model_basic.R")
-#getParamsandOutput(time.trend = T, input.file.name = "model/model_ar1MVN.txt", output.file.name = "model/model_ar1MVN.R")
-
-# This is how to run the model, it takes a lot of time to get the result. And it will save 
-# the output in "output/model_basic.rds" and "output/model_ar1MVN.rds"
-# source("model/model_basic.R")
-# source("model/model_ar1MVN.R")
 
 # this is use to read the fake output
-mod.basic <- readRDS(file ="output/mod.basic.rds")
-mod.ar1MVN <- readRDS(file ="output/mod.ar1MVN.rds")
-mod.gp <- readRDS(file ="output/mod.gp.rds")
+#mod.basic <- readRDS(file ="output/mod.basic.rds")
+#mod.ar1MVN <- readRDS(file ="output/mod.ar1MVN.rds")
+#mod.gp <- readRDS(file ="output/mod.gp.rds")
 
 # this is use to read the valdation jagsdata and fake output
 jags.dataVAL <- get_jagsdata(SBR_input,national_covar,do.validation = TRUE)
-mod.ar1MVNVAL <- readRDS(file ="output/mod.ar1MVNVAL.rds")
+#mod.ar1MVNVAL <- readRDS(file ="output/mod.ar1MVNVAL.rds")
 
 
 #-----------------------------------------------------------------
@@ -76,12 +64,12 @@ mod.ar1MVNVAL <- readRDS(file ="output/mod.ar1MVNVAL.rds")
 
 
 # check_est_table present the summary statistics for interested parameters(more than one)
-est.list<-c("sdy.j[1]","sdy.j[2]","sdy.j[3]","sdy.j[4]","sdy.j[5]",
-            "beta_datatype2","beta_datatype3","beta_datatype4","beta_datatype5")
-check_est_table(mod=mod.ar1MVN, 
-                est.list = est.list,
-                want = c("mean", "sd", "2.5%","97.5%"),
-                round=4)
+#est.list<-c("sdy.j[1]","sdy.j[2]","sdy.j[3]","sdy.j[4]","sdy.j[5]",
+ #           "beta_datatype2","beta_datatype3","beta_datatype4","beta_datatype5")
+#check_est_table(mod=mod.ar1MVN, 
+#                est.list = est.list,
+#                want = c("mean", "sd", "2.5%","97.5%"),
+#                round=4)
 
 # go to check_estimates for plots of the estimates
 
