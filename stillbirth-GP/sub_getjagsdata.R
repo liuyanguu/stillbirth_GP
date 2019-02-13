@@ -1,14 +1,14 @@
 #############################################################
 ##########            Data import           #################
 #############################################################
-get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.validation){
+get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.validation, staryear = 2000, endyear = 2015){
   
   #############################################################
   ##########        Data clean for jags       #################
   #############################################################
   
   # filter SBR_input. Keep the data of year 2000-2015
-  SBR_input<-filter(SBR_input, year>=2000 & year<=2015)
+  SBR_input<-filter(SBR_input, year>= startyear & year <= endyear)
   
   #  list of country, its matching region, and a index 
   countryRegionList <- national_covar[,c(1,8)] %>% distinct()  
@@ -18,17 +18,17 @@ get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.va
   getc.i<- merge(SBR_input,CountryRegionList,by="iso3")$country_idx
   
   # gett.i: the time index of ith obervation
-  estyears<-seq(2000,2015)
-  gett.i<- SBR_input$year-estyears[1]+1
+  estyears <- seq(startyear, endyear)
+  gett.i <- SBR_input$year-estyears[1]+1
   
   # getr.c: the region given country_idx
   getr.c <- countryRegionList$shmdg2
   
   # Store each covariate infomration in c*t matrix 
-  yearLength = max(gett.i)+1
+  yearLength <- max(gett.i)+1
   #function for creating matrix
-  numcoun<- length(countryRegionList$iso3)
-  country_covar<- as.vector(countryRegionList$iso3)
+  numcoun <- length(countryRegionList$iso3)
+  country_covar <- as.vector(countryRegionList$iso3)
   
   
   ## 5 covariates
