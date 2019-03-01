@@ -7,8 +7,7 @@ rstan_options(auto_write = TRUE)
 basic <- rstan::stan(file= "models/SBR_basic.stan",data=jags.data,chains = 4)
 saveRDS(basic , file ="output/mod.basic.rds")
 
-center_basic <- rstan::stan(file= "models/centerSBR_basic.stan",data=jags.data,chains = 1,
-                            iter = 100)
+center_basic <- rstan::stan(file= "models/centerSBR_basic.stan",data=jags.data,chains = 4)
 saveRDS(center_basic,file="output/mod.centerbasic.rds")
 
 ar <- rstan::stan(file= "models/SBR_AR1.stan",data=jags.data,chains = 4)

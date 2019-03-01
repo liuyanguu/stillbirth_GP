@@ -59,6 +59,31 @@ traceplot(ar,pars=c("sigma_j[4]"))
 traceplot(ar,pars=c("sigma_j[5]"))
 dev.off()
 
+pdf_name4 <- paste0("fig/noncenter_basic_stan.pdf")
+pdf(pdf_name4, width = 40, height = 20)
+par(mfrow=c(3,3))
+traceplot(center_basic,pars=c("beta_r[1]"))
+traceplot(center_basic,pars=c("beta_r[2]"))
+traceplot(center_basic,pars=c("beta_r[3]"))
+
+traceplot(center_basic,pars=c("beta_edu"))
+traceplot(center_basic,pars=c("beta_gni"))
+traceplot(center_basic,pars=c("beta_lbw"))
+traceplot(center_basic,pars=c("beta_nmr"))
+traceplot(center_basic,pars=c("beta_anc"))
+
+traceplot(center_basic,pars=c("beta_dt2"))
+traceplot(center_basic,pars=c("beta_dt3"))
+traceplot(center_basic,pars=c("beta_dt4"))
+traceplot(center_basic,pars=c("beta_dt5"))
+
+
+traceplot(center_basic,pars=c("sigma_j[1]"))
+traceplot(center_basic,pars=c("sigma_j[2]"))
+traceplot(center_basic,pars=c("sigma_j[3]"))
+traceplot(center_basic,pars=c("sigma_j[4]"))
+traceplot(center_basic,pars=c("sigma_j[5]"))
+dev.off()
 ###############est table################
 
 
@@ -68,6 +93,9 @@ print(basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","be
 print(ar,pars=c("rho","sigma_ar","beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
                        "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
                        "sigma_j[5]"))
+print(center_basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
+                "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
+                "sigma_j[5]"))
 basic.mcmc <- As.mcmc.list(mod.basic, permuted = TRUE) # return a list of arrays
 basic.df <- as.data.frame(mod.basic)
 ###############################
@@ -120,6 +148,14 @@ pdf_name <- paste0("fig/ar1_Yadj.pdf")
 pdf(pdf_name, width = 8, height = 5)
 GetCIs_adjp(mod.ar1MVN, jags.data=jags.data ,est.name = "adyhat.ct" )%>% lapply(Check,bias.adjust=T,do.validation=F)
 dev.off()
+
+
+
+
+
+
+
+
 
 pdf_name <- paste0("fig/w.pdf")
 pdf(pdf_name, width = 8, height = 5)

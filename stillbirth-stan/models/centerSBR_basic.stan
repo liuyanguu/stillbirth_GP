@@ -41,10 +41,10 @@ parameters {
   
   real<lower=0,upper=20> sigma_j[5];
 
-  real<lower=0,upper=100> sigma_r;
-  real<lower=0,upper=100> sigma_c;
-  
-  real eps_w;
+  real<lower=0> sigma_r;
+  real<lower=0> sigma_c;
+  real beta_w;
+
   vector[totalRegion] eps_r;
   vector[totalIndex_covar] eps_c;
 }
@@ -52,16 +52,17 @@ transformed parameters {
 
    matrix[totalIndex_covar,yearLength] mu_ct;
    real z_i[totalObs_SBR];
-   real beta_w = sigma_w * eps_w;
+  
    vector[totalRegion] beta_r; 
    vector[totalIndex_covar] beta_c;
 //intercept   
-   for(c in 1:totalIndex_covar){
-   beta_c[c] = beta_r[getr_c[c]] + sigma_c* eps_c[c];
-   }
    
    for(r in 1:totalRegion){
     beta_r[r]= beta_w + sigma_r* eps_r[r];
+   }
+   
+  for(c in 1:totalIndex_covar){
+   beta_c[c] = beta_r[getr_c[c]] + sigma_c* eps_c[c];
    }
 //mu_ct
   for(c in 1:totalIndex_covar){
@@ -84,15 +85,14 @@ transformed parameters {
 }
 
 model {
+  
 // prior
-eps_w ~ normal(0,1);
+target += normal_lpdf(beta_w| 0, 1);
 
-for(r in 1:totalRegion){
-eps_r[r] ~ normal(0,1);
-}
-for(c in 1:totalIndex_covar){
-eps_c[c] ~ normal(0,1);
-}
+target += normal_lpdf(eps_r| 0, 1);
+
+target += normal_lpdf(eps_c| 0, 1);
+
 beta_edu ~ normal(0,1);
 beta_gni ~ normal(0,1);
 beta_lbw ~ normal(0,1);

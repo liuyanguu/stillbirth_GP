@@ -81,16 +81,16 @@ for(c in 1:totalIndex_covar){
 beta_c[c] ~ normal(beta_r[getr_c[c]],sigma_c);
 }
 
-beta_edu ~ normal(0,1);
-beta_gni ~ normal(0,1);
-beta_lbw ~ normal(0,1);
-beta_nmr ~ normal(0,1);
-beta_anc ~ normal(0,1);
+beta_edu ~ normal(0,10);
+beta_gni ~ normal(0,10);
+beta_lbw ~ normal(0,10);
+beta_nmr ~ normal(0,10);
+beta_anc ~ normal(0,10);
 
-beta_dt2 ~ normal(0,1);
-beta_dt3 ~ normal(0,1);
-beta_dt4 ~ normal(0,1);
-beta_dt5 ~ normal(0,1);
+beta_dt2 ~ normal(0,10);
+beta_dt3 ~ normal(0,10);
+beta_dt4 ~ normal(0,10);
+beta_dt5 ~ normal(0,10);
 
 
 //likelihood
