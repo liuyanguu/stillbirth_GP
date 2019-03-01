@@ -7,65 +7,65 @@ mod.basic.array <- as.array(mod.basic)
 pdf_name4 <- paste0("fig/convergence_basic_stan.pdf")
 pdf(pdf_name4, width = 40, height = 20)
 par(mfrow=c(3,3))
-traceplot(mod.basic,pars=c("beta_r[1]"))
-traceplot(mod.basic,pars=c("beta_r[2]"))
-traceplot(mod.basic,pars=c("beta_r[3]"))
+traceplot(basic,pars=c("beta_r[1]"))
+traceplot(basic,pars=c("beta_r[2]"))
+traceplot(basic,pars=c("beta_r[3]"))
 
-traceplot(mod.basic,pars=c("beta_edu"))
-traceplot(mod.basic,pars=c("beta_gni"))
-traceplot(mod.basic,pars=c("beta_lbw"))
-traceplot(mod.basic,pars=c("beta_nmr"))
-traceplot(mod.basic,pars=c("beta_anc"))
+traceplot(basic,pars=c("beta_edu"))
+traceplot(basic,pars=c("beta_gni"))
+traceplot(basic,pars=c("beta_lbw"))
+traceplot(basic,pars=c("beta_nmr"))
+traceplot(basic,pars=c("beta_anc"))
 
-traceplot(mod.basic,pars=c("beta_dt2"))
-traceplot(mod.basic,pars=c("beta_dt3"))
-traceplot(mod.basic,pars=c("beta_dt4"))
-traceplot(mod.basic,pars=c("beta_dt5"))
+traceplot(basic,pars=c("beta_dt2"))
+traceplot(basic,pars=c("beta_dt3"))
+traceplot(basic,pars=c("beta_dt4"))
+traceplot(basic,pars=c("beta_dt5"))
 
 
-traceplot(mod.basic,pars=c("sigma_j[1]"))
-traceplot(mod.basic,pars=c("sigma_j[2]"))
-traceplot(mod.basic,pars=c("sigma_j[3]"))
-traceplot(mod.basic,pars=c("sigma_j[4]"))
-traceplot(mod.basic,pars=c("sigma_j[5]"))
+traceplot(basic,pars=c("sigma_j[1]"))
+traceplot(basic,pars=c("sigma_j[2]"))
+traceplot(basic,pars=c("sigma_j[3]"))
+traceplot(basic,pars=c("sigma_j[4]"))
+traceplot(basic,pars=c("sigma_j[5]"))
 dev.off()
 
 pdf_name4 <- paste0("fig/convergence_AR1_stan.pdf")
 pdf(pdf_name4, width = 40, height = 20)
 par(mfrow=c(3,3))
-traceplot(mod.ar1,pars=c("rho"))
-traceplot(mod.ar1,pars=c("sigma_ar"))
+traceplot(ar,pars=c("rho"))
+traceplot(ar,pars=c("sigma_ar"))
 
-traceplot(mod.ar1,pars=c("beta_r[1]"))
-traceplot(mod.ar1,pars=c("beta_r[2]"))
-traceplot(mod.ar1,pars=c("beta_r[3]"))
+traceplot(ar,pars=c("beta_r[1]"))
+traceplot(ar,pars=c("beta_r[2]"))
+traceplot(ar,pars=c("beta_r[3]"))
 
-traceplot(mod.ar1,pars=c("beta_edu"))
-traceplot(mod.ar1,pars=c("beta_gni"))
-traceplot(mod.ar1,pars=c("beta_lbw"))
-traceplot(mod.ar1,pars=c("beta_nmr"))
-traceplot(mod.ar1,pars=c("beta_anc"))
+traceplot(ar,pars=c("beta_edu"))
+traceplot(ar,pars=c("beta_gni"))
+traceplot(ar,pars=c("beta_lbw"))
+traceplot(ar,pars=c("beta_nmr"))
+traceplot(ar,pars=c("beta_anc"))
 
-traceplot(mod.ar1,pars=c("beta_dt2"))
-traceplot(mod.ar1,pars=c("beta_dt3"))
-traceplot(mod.ar1,pars=c("beta_dt4"))
-traceplot(mod.ar1,pars=c("beta_dt5"))
+traceplot(ar,pars=c("beta_dt2"))
+traceplot(ar,pars=c("beta_dt3"))
+traceplot(ar,pars=c("beta_dt4"))
+traceplot(ar,pars=c("beta_dt5"))
 
 
-traceplot(mod.ar1,pars=c("sigma_j[1]"))
-traceplot(mod.ar1,pars=c("sigma_j[2]"))
-traceplot(mod.ar1,pars=c("sigma_j[3]"))
-traceplot(mod.ar1,pars=c("sigma_j[4]"))
-traceplot(mod.ar1,pars=c("sigma_j[5]"))
+traceplot(ar,pars=c("sigma_j[1]"))
+traceplot(ar,pars=c("sigma_j[2]"))
+traceplot(ar,pars=c("sigma_j[3]"))
+traceplot(ar,pars=c("sigma_j[4]"))
+traceplot(ar,pars=c("sigma_j[5]"))
 dev.off()
 
 ###############est table################
 
 
-print(mod.basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
+print(basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
                        "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
                        "sigma_j[5]"))
-print(mod.ar1,pars=c("rho","sigma_ar","beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
+print(ar,pars=c("rho","sigma_ar","beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
                        "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
                        "sigma_j[5]"))
 basic.mcmc <- As.mcmc.list(mod.basic, permuted = TRUE) # return a list of arrays

@@ -1,8 +1,6 @@
 
 data {
-//  int<lower=0> J;         // number of schools 
-//  real y[J];              // estimated treatment effects
-//  real<lower=0> sigma[J]; // standard error of effect estimates 
+
   int <lower=0> totalObs_SBR; //number of observations
   int <lower=0> totalIndex_covar; //number of country
   int <lower=0> totalRegion; //number of region
@@ -74,7 +72,7 @@ transformed parameters {
 }
 
 model {
-
+//prior
 beta_w ~normal(0,sigma_w);
 for(r in 1:totalRegion){
 beta_r[r] ~ normal(beta_w,sigma_r);
@@ -89,8 +87,13 @@ beta_lbw ~ normal(0,1);
 beta_nmr ~ normal(0,1);
 beta_anc ~ normal(0,1);
 
+beta_dt2 ~ normal(0,1);
+beta_dt3 ~ normal(0,1);
+beta_dt4 ~ normal(0,1);
+beta_dt5 ~ normal(0,1);
 
-//main part
+
+//likelihood
 for(i in 1:totalObs_SBR){
             y_i[i] ~ normal(mu_ct[getc_i[i],gett_i[i]]+z_i[i],sigma_j[getj_i[i]]);
    }

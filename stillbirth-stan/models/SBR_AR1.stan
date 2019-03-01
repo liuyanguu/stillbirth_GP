@@ -72,7 +72,7 @@ transformed parameters {
              beta_dt5*dummy_datatype5_i[i];
            
   }
-  delta_ct[,1] = sigma_ar/(1-rho^2)*epsilon_star[,1];
+  delta_ct[,1] = (sigma_ar^2)/(1-rho^2)*epsilon_star[,1];
   for(t in 2:yearLength){
     delta_ct[,t]=rho * delta_ct[,t-1] + sigma_ar * epsilon_star[,t];
   }
@@ -80,8 +80,8 @@ transformed parameters {
 }
 
 model {
-// mean part
-beta_w ~normal(0,sigma_w);
+// prior
+beta_w ~normal(0,0);
 for(r in 1:totalRegion){
 beta_r[r] ~ normal(beta_w,sigma_r);
 }
@@ -105,7 +105,7 @@ beta_dt5 ~ normal(0,1);
 for(t in 1:yearLength){
 epsilon_star[,t]~ normal(0,1);}
 
-//main part
+//likelihood
 for(i in 1:totalObs_SBR){
             y_i[i] ~ normal(mu_ct[getc_i[i],gett_i[i]]+z_i[i]+delta_ct[getc_i[i],gett_i[i]],sigma_j[getj_i[i]]);
    }
