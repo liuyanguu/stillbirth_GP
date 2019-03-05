@@ -17,7 +17,7 @@ library(bayesplot)
 library(rstantools) # needed for PIT_loo
 library(haven)
 library(tidyverse)
-library(distortr)
+#library(distortr)
 library(fields)
 library(splines)
 library(boot)

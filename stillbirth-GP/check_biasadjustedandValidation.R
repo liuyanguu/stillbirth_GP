@@ -14,7 +14,17 @@ mod.ar1MVNVAL <- readRDS(file ="output/mod.ar1MVNVAL.rds")
 # NO bias adjusted information, no validation information
 pdf_name <- paste0("fig/CT_Nadj_Nval.pdf")
 pdf(pdf_name, width = 8, height = 5)
-GetCIs_adjp(mod.ar1MVN, jags.data=jags.data ,est.name = "adyhat.ct" )%>% lapply(Check,bias.adjust=F,do.validation=F)
+GetCIs_adjp(mod.basic, jags.data=jags.data ,est.name = "mu.ct" )%>% lapply(Check.comp,bias.adjust=F,do.validation=F)
+dev.off()
+
+pdf_name <- paste0("fig/comp_ar1&loess.pdf")
+pdf(pdf_name, width = 8, height = 5)
+lapply(CIs.with.loess.tqc,Check.comp,bias.adjust=T,do.validation=F)
+dev.off()
+
+pdf_name <- paste0("fig/comp_ar1&basic.pdf")
+pdf(pdf_name, width = 8, height = 5)
+lapply(CIs.with.basic.tqc,Check.comp,bias.adjust=F,do.validation=F)
 dev.off()
 
 # Bias adjusted infomration, no validation information

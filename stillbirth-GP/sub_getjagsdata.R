@@ -8,10 +8,13 @@ get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.va
   #############################################################
   
   # filter SBR_input. Keep the data of year 2000-2015
+  startyear <- 2000
+  endyear <- 2015
+  
   SBR_input<-filter(SBR_input, year>= startyear & year <= endyear)
   
   #  list of country, its matching region, and a index 
-  countryRegionList <- national_covar[,c(1,8)] %>% distinct()  
+  countryRegionList <- national_covar[,c(1,2,8)] %>% distinct()  
   CountryRegionList <- mutate(countryRegionList,country_idx=as.numeric(factor(countryRegionList$iso3)))
   
   # getc.i: the country index of ith observation
@@ -29,7 +32,7 @@ get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.va
   #function for creating matrix
   numcoun <- length(countryRegionList$iso3)
   country_covar <- as.vector(countryRegionList$iso3)
-  
+  country_name <- as.vector(countryRegionList$country)
   
   ## 5 covariates
   edu_matrix = covarMatrix("mean_edu")
@@ -60,7 +63,7 @@ get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.va
   
   jags.data<- list(  y.i = y.i, getj.i=getj.i, getc.i = getc.i, getr.c = getr.c, gett.i= gett.i, 
                      dummy_datatype2.i=dummy_datatype2.i, dummy_datatype3.i=dummy_datatype3.i,dummy_datatype4.i=dummy_datatype4.i,dummy_datatype5.i = dummy_datatype5.i,
-                     totalObs_SBR = totalObs_SBR, totalIndex_covar=totalIndex_covar, totalRegion= totalRegion,estyears=estyears,country_covar=country_covar,
+                     totalObs_SBR = totalObs_SBR, totalIndex_covar=totalIndex_covar, totalRegion= totalRegion,estyears=estyears,country_covar=country_covar,country_name=country_name,
                      yearLength= yearLength, edu_matrix= edu_matrix, gni_matrix=gni_matrix, lbw_matrix= lbw_matrix, nmr_matrix=nmr_matrix, anc_matrix= anc_matrix)
   
   if (!do.validation){

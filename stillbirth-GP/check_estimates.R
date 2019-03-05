@@ -18,7 +18,7 @@ pdf_name <- paste0("fig/graphsCT_ar1&basic.pdf")
 pdf(pdf_name, width = 8, height = 5)
 
 ### you should input a dataset_list inlcuding all your datasets and get different CIs
-dataset_list <- list(mod.ar1MVN)
+dataset_list <- list(mod.basic,mod.ar1MVN)
 estimates_name <- c('mu.ct', 'adyhat.ct')
 GetCIs(dataset_list, estimates_name, lower = 0.025, upper = 0.975) %>% lapply(CheckEsts)
 

@@ -13,7 +13,8 @@
 #----
 # user/run specific info
 # define WD
-workdir <- getwd()
+
+workdir <- "E:/doc/research/birth rate/stillbirth_GP/stillbirth-GP"
 
 # settings (default to FALSE to focus on fitting of the simplest model)
 
@@ -25,7 +26,7 @@ workdir <- getwd()
 # setting the workdir, loading libraries sourcing functions
 setwd(workdir)
 # source the R functions in the functions subfolder 
-Rfiles <- list.files(file.path(paste0(getwd(),"/R/")), ".R") #gets names of r files
+Rfiles <- list.files(file.path(paste0(workdir,"/R/")), ".R") #gets names of r files
 sapply(paste0(paste0(getwd(),"/R/"), Rfiles), source) #gets functions from file
 
 source("sub_loadpackages.R")
