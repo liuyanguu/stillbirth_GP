@@ -1,33 +1,33 @@
-mod.basic <- readRDS(file ="output/mod.basic.rds")
-mod.ar1 <- readRDS(file ="output/mod.ar.rds")
+mod.basic <- readRDS(file ="output/mod.centerbasic_hs.rds")
+mod.ar1 <- readRDS(file ="output/mod.centerAR1_hs.rds")
 
 ############cov check############
 mod.basic.array <- as.array(mod.basic)
 
-pdf_name4 <- paste0("fig/convergence_basic_stan.pdf")
+pdf_name4 <- paste0("fig/convergence_basic_hs_stan.pdf")
 pdf(pdf_name4, width = 40, height = 20)
 par(mfrow=c(3,3))
-traceplot(basic,pars=c("beta_r[1]"))
-traceplot(basic,pars=c("beta_r[2]"))
-traceplot(basic,pars=c("beta_r[3]"))
+traceplot(center_basic_hs,pars=c("beta_r[1]"))
+traceplot(center_basic_hs,pars=c("beta_r[2]"))
+traceplot(center_basic_hs,pars=c("beta_r[3]"))
 
-traceplot(basic,pars=c("beta_edu"))
-traceplot(basic,pars=c("beta_gni"))
-traceplot(basic,pars=c("beta_lbw"))
-traceplot(basic,pars=c("beta_nmr"))
-traceplot(basic,pars=c("beta_anc"))
+traceplot(center_basic_hs,pars=c("beta_edu"))
+traceplot(center_basic_hs,pars=c("beta_gni"))
+traceplot(center_basic_hs,pars=c("beta_lbw"))
+traceplot(center_basic_hs,pars=c("beta_nmr"))
+traceplot(center_basic_hs,pars=c("beta_anc"))
 
-traceplot(basic,pars=c("beta_dt2"))
-traceplot(basic,pars=c("beta_dt3"))
-traceplot(basic,pars=c("beta_dt4"))
-traceplot(basic,pars=c("beta_dt5"))
+traceplot(center_basic_hs,pars=c("beta_dt2"))
+traceplot(center_basic_hs,pars=c("beta_dt3"))
+traceplot(center_basic_hs,pars=c("beta_dt4"))
+traceplot(center_basic_hs,pars=c("beta_dt5"))
 
 
-traceplot(basic,pars=c("sigma_j[1]"))
-traceplot(basic,pars=c("sigma_j[2]"))
-traceplot(basic,pars=c("sigma_j[3]"))
-traceplot(basic,pars=c("sigma_j[4]"))
-traceplot(basic,pars=c("sigma_j[5]"))
+traceplot(center_basic_hs,pars=c("sigma_j[1]"))
+traceplot(center_basic_hs,pars=c("sigma_j[2]"))
+traceplot(center_basic_hs,pars=c("sigma_j[3]"))
+traceplot(center_basic_hs,pars=c("sigma_j[4]"))
+traceplot(center_basic_hs,pars=c("sigma_j[5]"))
 dev.off()
 
 pdf_name4 <- paste0("fig/convergence_AR1_stan.pdf")
@@ -87,10 +87,10 @@ dev.off()
 ###############est table################
 
 
-print(basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
-                       "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
+print(mod.basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
+                       "sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
                        "sigma_j[5]"))
-print(ar,pars=c("rho","sigma_ar","beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
+print(mod.ar,pars=c("rho","sigma_ar","beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",
                        "beta_dt2","beta_dt3","beta_dt4","beta_dt5","sigma_j[1]","sigma_j[2]","sigma_j[3]","sigma_j[4]",
                        "sigma_j[5]"))
 print(center_basic,pars=c("beta_r[1]","beta_r[2]","beta_r[3]","beta_edu","beta_gni","beta_lbw","beta_nmr","beta_anc",

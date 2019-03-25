@@ -1,7 +1,7 @@
 #############################################################
 ##########            Data import           #################
 #############################################################
-get_jagsdata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.validation){
+get_standata <- function(dataset1 = SBR_input, dataset2 = national_covar , do.validation){
   
   #############################################################
   ##########        Data clean for jags       #################

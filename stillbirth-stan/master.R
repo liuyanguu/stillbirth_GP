@@ -14,7 +14,7 @@
 # user/run specific info
 # define WD
 
-workdir <- "E:/doc/research/birth rate/stillbirth_GP/stillbirth-GP"
+workdir <- "E:/doc/research/birth rate/stillbirth_GP/stillbirth-stan"
 
 # settings (default to FALSE to focus on fitting of the simplest model)
 
@@ -30,7 +30,7 @@ Rfiles <- list.files(file.path(paste0(workdir,"/R/")), ".R") #gets names of r fi
 sapply(paste0(paste0(getwd(),"/R/"), Rfiles), source) #gets functions from file
 
 source("sub_loadpackages.R")
-source("sub_getjagsdata.R")
+source("sub_getstandata.R")
 
 #---------------------------------------------
 # read in data, process data to get jasgdata object 
@@ -40,7 +40,7 @@ national_covar <- read_dta("input/national_covariates.dta",encoding='latin1')
 #reported_loess <- read_dta("input/reported_loess.dta",encoding='latin1')
 
 # do.validation=FALSE, if true, most recent observation in each country is left out
-jags.data <- get_jagsdata(SBR_input,national_covar,do.validation = FALSE)
+stan.data <- get_standata(SBR_input,national_covar,do.validation = FALSE)
 
 
 # go to sub_exploratory for some overview plots
